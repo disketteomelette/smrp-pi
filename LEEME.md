@@ -1,7 +1,10 @@
 # smrp-pi
-SMRP-PI is a very simple radio packet protocol for deliver short messages at about ~90 characters per minute. This experiment is focused in find some reliability of the message (integrity) instead of speed.
+Short Message Radiopacket Protocol for Raspberry Pi (3b)
+Frequency Key Shifting experiment
+
+SMRP-PI is a very simple FSK radio packet protocol for deliver short messages at about ~90 characters (ASCII/UTF-8) per minute. This experiment is more focused in some integrity instead of speed. 
 This experiment takes advantage of "rpitx" project, which permits transmit radio using the PWM GPIO port of raspberry pi. 
-This protocol is intended for transmit short-length information from weather stations, non-critical sensors, automatic digital signage updates, or some kind of notifications.
+This protocol is intended for transmit short-length information from weather stations, non-critical sensors, automatic digital signage updates, or some kind of notifications. The message is coded using generated square tones between 2 and 3000 Hz.
 
 * LEGAL NOTE *
 
@@ -33,10 +36,10 @@ PACKET SCHEMA:
 
 [MESSAGE] Sucession of tones which are translated to HEX (2 characters HEX per character ASCII/UTF-8). Each letter are coded in this way:
 
-  [ CHARACTER START TONE ]           [ CHARACTER TONE ]                         [ SILENCE ]
-  A high-pitched tone +3 samples.    A medium-pitch tone for each character     A 2 Hz tone.
-                                     (Alphabet: ABCDEF012345678)
-
+  [ CHARACTER START TONE ] High-pitched tone. Needs > 3 samples to trigger.
+  [ CHARACTER TONE ]  Medium-pitched tone for each character (alphabet: ABCDEF0123456789)
+  [ SILENCE ] 2 Hz tone.  
+  
 [SEPARATOR] 
 
 [CHECKSUM] This is a 6 digits (hex; corresponding to 3 ascii/utf-8 characters) checksum md5. For speed reasons, we only get the first 3 characters of the md5 hash, so virtually is possible a hash colission. 
