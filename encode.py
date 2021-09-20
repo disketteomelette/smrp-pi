@@ -7,7 +7,7 @@ from pydub import AudioSegment
 from pydub.generators import Square
 from pydub.playback import play
 
-s = "Hello world"
+s = input("Texto a enviar / Text to send:")
 a = s.encode("hex")
 s = a
 print ("- Mensaje codificado:", s)
